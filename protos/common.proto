@@ -1,0 +1,32 @@
+//指定版本
+//注意proto3与proto2的写法有些不同
+syntax = "proto3";
+//包名，通过protoc生成时go文件时
+package common;
+option go_package = "/protos";
+
+//声明一个消息体描述一个请求或者响应的消息格式
+message LRequest {
+  // 接口名
+  string api = 1;
+  // 参数
+  string param = 2;
+}
+
+message LResult {
+  // 接口名
+  string api = 1;
+  // 返回码 0成功 其他为失败
+  int32 code = 2;
+  // 错误编号
+  string err_code = 3;
+  // 消息
+  string msg = 4;
+  // 内容
+  string data = 5;
+}
+
+message LMsg {
+  string api = 1;
+  string msg = 2;
+}
