@@ -2,7 +2,7 @@ package module
 
 import (
 	"context"
-	"github.com/linking-lib/go-game-lib/socket"
+	"github.com/linking-lib/go-game-lib/socket/session"
 	"github.com/topfreegames/pitaya"
 	"github.com/topfreegames/pitaya/component"
 	"github.com/topfreegames/pitaya/config"
@@ -58,7 +58,7 @@ func (b *SelfBase) CreateGroup(group string) {
 */
 func (b *SelfBase) BindUser(ctx context.Context, uid string) error {
 	// 1、从ctx中获得session
-	s := socket.GetSession(ctx)
+	s := session.GetSession(ctx)
 	// 2、绑定session用户编号
 	err := s.Bind(ctx, uid)
 	if err != nil {
