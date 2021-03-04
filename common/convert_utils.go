@@ -3,11 +3,14 @@ package common
 import (
 	"encoding/base64"
 	"encoding/json"
-	"github.com/ganeryao/linking-go-agile/protos"
-	"github.com/ganeryao/linking-go-agile/utils/serialize"
-	lkJson "github.com/ganeryao/linking-go-agile/utils/serialize/json"
-	"github.com/ganeryao/linking-go-agile/utils/strs"
 	"github.com/golang/protobuf/proto"
+	"github.com/linking-lib/go-game-lib/lkerrors"
+	"github.com/linking-lib/go-game-lib/protos"
+	"github.com/linking-lib/go-game-lib/socket/module"
+	"github.com/linking-lib/go-game-lib/utils/serialize"
+	lkJson "github.com/linking-lib/go-game-lib/utils/serialize/json"
+	"github.com/linking-lib/go-game-lib/utils/strs"
+	"strings"
 )
 
 type ConvertUtils struct {
@@ -108,4 +111,22 @@ func convertJsonResult(result *protos.LResult) LResult {
 		}
 	}
 	return sResult
+}
+
+func ConvertApi(api string) string {
+	a := strings.Split(api, ".")
+	num := len(a)
+	if num >= 3 {
+		return a[len(a)-3] + "." + a[len(a)-2] + "." + a[len(a)-1]
+	} else if num >= 2 {
+		return a[len(a)-2] + "." + a[len(a)-1]
+	} else {
+		panic("ConvertApi api len error" + api)
+	}
+}
+
+func ConvertHandlerMsg(request *protos.LRequest, uid string, data interface{}) (*module.HandlerMsg, *lkerrors.Error) {
+	request.Api = ConvertApi(request.GetApi())
+	ParseJson(request.Param, data)
+	return &module.HandlerMsg{Uid: uid, ApiType: module.ApiModeMain, Api: request.Api, Msg: data}, nil
 }

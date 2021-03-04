@@ -1,4 +1,4 @@
-package pojo
+package po
 
 import (
 	"gorm.io/gorm"

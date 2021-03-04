@@ -1,4 +1,4 @@
-package pojo
+package bo
 
 type ApiBO struct {
 	Module string

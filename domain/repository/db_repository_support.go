@@ -1,23 +1,23 @@
 package repository
 
 import (
-	"github.com/ganeryao/linking-go-agile/common"
-	"github.com/ganeryao/linking-go-agile/infrastructure/mysql"
-	"github.com/ganeryao/linking-go-agile/infrastructure/redis"
-	"github.com/ganeryao/linking-go-agile/pojo"
-	"github.com/ganeryao/linking-go-agile/utils/strs"
+	"github.com/linking-lib/go-game-lib/common"
+	"github.com/linking-lib/go-game-lib/infrastructure/mysql"
+	po2 "github.com/linking-lib/go-game-lib/infrastructure/po"
+	"github.com/linking-lib/go-game-lib/infrastructure/redis"
+	"github.com/linking-lib/go-game-lib/utils/strs"
 )
 
 type DbRepositorySupport struct {
 }
 
 func (db DbRepositorySupport) dbName(value interface{}) string {
-	po := value.(pojo.AbstractPO)
+	po := value.(po2.AbstractPO)
 	return po.Db
 }
 
 func (db DbRepositorySupport) cacheName(value interface{}) string {
-	po := value.(pojo.PO)
+	po := value.(po2.PO)
 	return po.CacheName()
 }
 

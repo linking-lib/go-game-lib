@@ -18,7 +18,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-package errors
+package lkerrors
 
 import "errors"
 
@@ -26,7 +26,10 @@ var (
 	ErrWrongValueType        = errors.New("protos: convert on wrong type value")
 	ErrWrongSerializer       = errors.New("serializer: name not found")
 	ErrWrongRocketmqProducer = errors.New("rocketmq: producer not found")
+	ErrUnsupportedRequest    = errors.New("Unsupported request")
 )
+
+const RetInternalCode = 500
 
 // ErrUnknownCode is a string code representing an unknown error
 // This will be used when no error code is sent by the handler

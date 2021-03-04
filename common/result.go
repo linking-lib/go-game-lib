@@ -2,7 +2,7 @@ package common
 
 import (
 	"encoding/json"
-	"github.com/ganeryao/linking-go-agile/protos"
+	"github.com/linking-lib/go-game-lib/protos"
 )
 
 type LResult struct {

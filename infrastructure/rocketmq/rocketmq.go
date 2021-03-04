@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"github.com/alecthomas/log4go"
 	mqHttpSdk "github.com/aliyunmq/mq-http-go-sdk"
-	lkError "github.com/ganeryao/linking-go-agile/errors"
 	"github.com/gogap/errors"
+	lkError "github.com/linking-lib/go-game-lib/lkerrors"
 	"strings"
 	"time"
 )
