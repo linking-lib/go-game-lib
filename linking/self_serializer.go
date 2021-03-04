@@ -1,4 +1,4 @@
-package serialize
+package linking
 
 import (
 	lkCommon "github.com/linking-lib/go-game-lib/common"
