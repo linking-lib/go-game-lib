@@ -11,7 +11,6 @@ import (
 
 type SelfComponent interface {
 	component.Component
-	Group() string
 }
 
 // Base implements a default module for Component.
