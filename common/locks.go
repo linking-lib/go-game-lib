@@ -4,10 +4,10 @@ func Lock(ids ...string) {
 
 }
 
-func unlock(ids ...string) {
+func Unlock(ids ...string) {
 
 }
 
-func unlockAll() {
+func UnlockAll() {
 
 }
