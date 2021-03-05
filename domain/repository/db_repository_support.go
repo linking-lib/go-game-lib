@@ -3,7 +3,7 @@ package repository
 import (
 	"github.com/linking-lib/go-game-lib/common"
 	"github.com/linking-lib/go-game-lib/infrastructure/mysql"
-	po2 "github.com/linking-lib/go-game-lib/infrastructure/po"
+	"github.com/linking-lib/go-game-lib/infrastructure/po"
 	"github.com/linking-lib/go-game-lib/infrastructure/redis"
 	"github.com/linking-lib/go-game-lib/utils/strs"
 )
@@ -12,13 +12,11 @@ type DbRepositorySupport struct {
 }
 
 func (db DbRepositorySupport) DbName(value interface{}) string {
-	po := value.(po2.PO)
-	return po.DbName()
+	return value.(po.PO).DbName()
 }
 
 func (db DbRepositorySupport) CacheName(value interface{}) string {
-	po := value.(po2.PO)
-	return po.CacheName(value)
+	return value.(po.PO).CacheName(value)
 }
 
 func (db DbRepositorySupport) FindOne(query interface{}, dest interface{}) {
