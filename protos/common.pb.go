@@ -91,9 +91,9 @@ type LResult struct {
 	// 接口名
 	Api string `protobuf:"bytes,1,opt,name=api,proto3" json:"api,omitempty"`
 	// 返回码 0成功 其他为失败
-	Code int32 `protobuf:"varint,2,opt,name=code,proto3" json:"code,omitempty"`
+	Code int32 `protobuf:"varint,2,opt,name=code,proto3" json:"code"`
 	// 错误编号
-	ErrCode string `protobuf:"bytes,3,opt,name=err_code,json=errCode,proto3" json:"err_code,omitempty"`
+	ErrCode string `protobuf:"bytes,3,opt,name=err_code,json=errCode,proto3" json:"err_code"`
 	// 消息
 	Msg string `protobuf:"bytes,4,opt,name=msg,proto3" json:"msg,omitempty"`
 	// 内容
