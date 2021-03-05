@@ -33,7 +33,7 @@ func DoHandleMsg(msg HandlerMsg) (*protos.LResult, error) {
 	ret, err := util.Pcall(handler.Method, args)
 	if err != nil {
 		_ = log4go.Error("DoHandleMsg=============" + err.Error())
-		return common.OfFail(msg.Api, lkerrors.RetInternalCode, lkerrors.ErrInternalCode, err.Error()), err
+		return common.OfFail(lkerrors.RetInternalCode, lkerrors.ErrInternalCode, err.Error()), err
 	}
 	if ret != nil {
 		return ret.(*protos.LResult), nil
