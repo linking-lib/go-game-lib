@@ -29,7 +29,7 @@ var (
 	ErrUnsupportedRequest    = errors.New("Unsupported request")
 )
 
-const RetInternalCode = 500
+const RetInternalCode = "500"
 
 // ErrUnknownCode is a string code representing an unknown error
 // This will be used when no error code is sent by the handler

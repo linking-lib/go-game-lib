@@ -3,7 +3,7 @@ package common
 /**
  * 一切OK的返回码
  */
-const RetOk = 0
+const RetOk = "0"
 
 /**
  * 一切OK的CODE
