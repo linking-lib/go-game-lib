@@ -10,11 +10,11 @@ import (
 )
 
 // SessionData struct
-type SessionData struct {
+type LkSessionData struct {
 	Data map[string]interface{}
 }
 
-type UserSession struct {
+type LkSession struct {
 }
 
 // GetSession gets the session data
@@ -23,16 +23,16 @@ func GetSession(ctx context.Context) *session.Session {
 }
 
 // GetSessionData gets the session data
-func (c *UserSession) GetSessionData(ctx context.Context) (*SessionData, error) {
+func (c *LkSession) GetSessionData(ctx context.Context) (*LkSessionData, error) {
 	s := pitaya.GetSessionFromCtx(ctx)
-	res := &SessionData{
+	res := &LkSessionData{
 		Data: s.GetData(),
 	}
 	return res, nil
 }
 
 // SetSessionData sets the session data
-func (c *UserSession) SetSessionData(ctx context.Context, data *SessionData) (*protos.LResult, error) {
+func (c *LkSession) SetSessionData(ctx context.Context, data *LkSessionData) (*protos.LResult, error) {
 	s := pitaya.GetSessionFromCtx(ctx)
 	err := s.SetData(data.Data)
 	if err != nil {
@@ -46,7 +46,7 @@ func (c *UserSession) SetSessionData(ctx context.Context, data *SessionData) (*p
 }
 
 // NotifySessionData sets the session data
-func (c *UserSession) NotifySessionData(ctx context.Context, data *SessionData) {
+func (c *LkSession) NotifySessionData(ctx context.Context, data *LkSessionData) {
 	s := pitaya.GetSessionFromCtx(ctx)
 	err := s.SetData(data.Data)
 	if err != nil {

@@ -19,10 +19,12 @@ func InitComponent(local module.SelfComponent, remote module.SelfComponent) {
 		component.WithName(local.Group()),
 		component.WithNameFunc(strings.ToLower),
 	)
-	pitaya.RegisterRemote(remote,
-		component.WithName(remote.Group()),
-		component.WithNameFunc(strings.ToLower),
-	)
+	if remote != nil {
+		pitaya.RegisterRemote(remote,
+			component.WithName(remote.Group()),
+			component.WithNameFunc(strings.ToLower),
+		)
+	}
 }
 
 func ConfigureFrontend(port int, httpPort int, dictionary ...string) {
