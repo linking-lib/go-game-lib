@@ -7,8 +7,8 @@ import (
 
 type LResult struct {
 	Api     string      `json:"api,omitempty"`
-	Code    int32       `json:"code,omitempty"`
-	ErrCode string      `json:"err_code,omitempty"`
+	Code    int32       `json:"code"`
+	ErrCode string      `json:"err_code"`
 	Msg     string      `json:"msg,omitempty"`
 	Data    interface{} `json:"data,omitempty"`
 }
