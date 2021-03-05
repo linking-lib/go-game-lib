@@ -17,7 +17,7 @@ message LResult {
   // 接口名
   string api = 1;
   // 返回码 0成功 其他为失败
-  int32 code = 2;
+  string code = 2;
   // 错误编号
   string err_code = 3;
   // 消息
