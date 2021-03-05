@@ -52,7 +52,10 @@ func initMysql(mysqlConfig MConfig) {
 
 func initDb(config MServerConfig, maxIdle int, maxActive int) *gorm.DB {
 	dsn := config.User + ":" + config.Password + "@tcp(" + config.Url + ")/" + config.Db + "?charset=utf8mb4&parseTime=True&loc=Local"
-	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{
+	db, err := gorm.Open(mysql.New(mysql.Config{
+		DriverName: "com.mysql.cj.jdbc.Driver",
+		DSN:        dsn,
+	}), &gorm.Config{
 		SkipDefaultTransaction: true,
 		PrepareStmt:            true,
 	})
