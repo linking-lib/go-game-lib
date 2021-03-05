@@ -11,5 +11,4 @@ type PO interface {
 
 type AbstractPO struct {
 	gorm.Model
-	Db string `gorm:"-"`
 }
