@@ -21,13 +21,13 @@ func GetSession(ctx context.Context) *session.Session {
 }
 
 // GetData gets the session data
-func (s *LkSession) GetData(ctx context.Context, key string) interface{} {
+func GetData(ctx context.Context, key string) interface{} {
 	lkSession := GetSession(ctx)
 	return lkSession.Get(key)
 }
 
 // GetAllData gets the session data
-func (s *LkSession) GetAllData(ctx context.Context) *LkSessionData {
+func GetAllData(ctx context.Context) *LkSessionData {
 	lkSession := GetSession(ctx)
 	res := &LkSessionData{
 		Data: lkSession.GetData(),
@@ -36,7 +36,7 @@ func (s *LkSession) GetAllData(ctx context.Context) *LkSessionData {
 }
 
 // SetData sets the session data
-func (s *LkSession) SetData(ctx context.Context, key string, value interface{}) (bool, error) {
+func SetData(ctx context.Context, key string, value interface{}) (bool, error) {
 	lkSession := GetSession(ctx)
 	curData := lkSession.GetData()
 	curData[key] = value
@@ -52,7 +52,7 @@ func (s *LkSession) SetData(ctx context.Context, key string, value interface{}) 
 }
 
 // SetAnyData sets the session data
-func (s *LkSession) SetAnyData(ctx context.Context, data map[string]interface{}) (bool, error) {
+func SetAnyData(ctx context.Context, data map[string]interface{}) (bool, error) {
 	lkSession := GetSession(ctx)
 	// 1、取出老数据
 	curData := lkSession.GetData()
@@ -72,7 +72,7 @@ func (s *LkSession) SetAnyData(ctx context.Context, data map[string]interface{})
 }
 
 // SetAllData sets the session data
-func (s *LkSession) SetAllData(ctx context.Context, data *LkSessionData) (bool, error) {
+func SetAllData(ctx context.Context, data *LkSessionData) (bool, error) {
 	lkSession := GetSession(ctx)
 	err := lkSession.SetData(data.Data)
 	if err != nil {
@@ -86,7 +86,7 @@ func (s *LkSession) SetAllData(ctx context.Context, data *LkSessionData) (bool, 
 }
 
 // NotifySessionData sets the session data
-func (s *LkSession) NotifySessionData(ctx context.Context, data *LkSessionData) {
+func NotifySessionData(ctx context.Context, data *LkSessionData) {
 	lkSession := GetSession(ctx)
 	err := lkSession.SetData(data.Data)
 	if err != nil {
@@ -101,7 +101,7 @@ func (s *LkSession) NotifySessionData(ctx context.Context, data *LkSessionData) 
 /**
 绑定用户
 */
-func (s *LkSession) BindUser(ctx context.Context, uid string) error {
+func BindUser(ctx context.Context, uid string) error {
 	// 1、从ctx中获得session
 	lkSession := GetSession(ctx)
 	// 2、绑定session用户编号
