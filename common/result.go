@@ -21,12 +21,8 @@ func Ok() *protos.LResult {
 	return &protos.LResult{Code: RetOk, ErrCode: CodeOk, Msg: MsgOk}
 }
 
-func OfOk(api string) *protos.LResult {
-	return &protos.LResult{Api: api, Code: RetOk, ErrCode: CodeOk, Msg: MsgOk}
-}
-
-func OfOkData(api string, data interface{}) *protos.LResult {
-	result := OfOk(api)
+func OfOkData(data interface{}) *protos.LResult {
+	result := Ok()
 	if data != nil {
 		jsonB, _ := json.Marshal(data)
 		result.Data = string(jsonB)
@@ -34,12 +30,12 @@ func OfOkData(api string, data interface{}) *protos.LResult {
 	return result
 }
 
-func OfFail(api string, code int32, errCode string, msg string) *protos.LResult {
-	return &protos.LResult{Api: api, Code: code, ErrCode: errCode, Msg: msg}
+func OfFail(code int32, errCode string, msg string) *protos.LResult {
+	return &protos.LResult{Code: code, ErrCode: errCode, Msg: msg}
 }
 
-func OfFailData(api string, code int32, errCode string, msg string, data interface{}) *protos.LResult {
-	result := OfFail(api, code, errCode, msg)
+func OfFailData(code int32, errCode string, msg string, data interface{}) *protos.LResult {
+	result := OfFail(code, errCode, msg)
 	if data != nil {
 		jsonB, _ := json.Marshal(data)
 		result.Data = string(jsonB)
