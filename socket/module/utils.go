@@ -6,7 +6,7 @@ import (
 	"github.com/linking-lib/go-game-lib/common"
 	"github.com/linking-lib/go-game-lib/lkerrors"
 	"github.com/linking-lib/go-game-lib/protos"
-	manager "github.com/linking-lib/go-game-lib/utils"
+	util2 "github.com/linking-lib/go-game-lib/utils/util"
 	"github.com/topfreegames/pitaya"
 	"github.com/topfreegames/pitaya/util"
 	"reflect"
@@ -55,7 +55,7 @@ func SendRPC(ctx context.Context, serverId string, route string, request *protos
 加入组
 */
 func JoinGroup(ctx context.Context, group string, uid string) bool {
-	logger := manager.GetLog(ctx)
+	logger := util2.GetLog(ctx)
 	// 1、判断用户是否已经在组中，如果不存在再加入
 	flag, err := pitaya.GroupContainsMember(ctx, group, uid)
 	if err != nil {
@@ -76,7 +76,7 @@ func JoinGroup(ctx context.Context, group string, uid string) bool {
 离开组
 */
 func LeaveGroup(ctx context.Context, group string, uid string) bool {
-	logger := manager.GetLog(ctx)
+	logger := util2.GetLog(ctx)
 	// 1、用户从组中移除
 	err := pitaya.GroupRemoveMember(ctx, group, uid)
 	if err != nil {
@@ -90,7 +90,7 @@ func LeaveGroup(ctx context.Context, group string, uid string) bool {
 清空组
 */
 func ClearGroup(ctx context.Context, group string) bool {
-	logger := manager.GetLog(ctx)
+	logger := util2.GetLog(ctx)
 	// 1、清空组中成员
 	err := pitaya.GroupRemoveAll(ctx, group)
 	if err != nil {
