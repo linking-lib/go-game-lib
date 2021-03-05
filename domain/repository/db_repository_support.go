@@ -12,13 +12,13 @@ type DbRepositorySupport struct {
 }
 
 func (db DbRepositorySupport) DbName(value interface{}) string {
-	po := value.(po2.AbstractPO)
-	return po.Db
+	po := value.(po2.PO)
+	return po.DbName()
 }
 
 func (db DbRepositorySupport) CacheName(value interface{}) string {
 	po := value.(po2.PO)
-	return po.CacheName()
+	return po.CacheName(value)
 }
 
 func (db DbRepositorySupport) FindOne(query interface{}, dest interface{}) {

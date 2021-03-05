@@ -5,7 +5,8 @@ import (
 )
 
 type PO interface {
-	CacheName() string
+	DbName() string
+	CacheName(value interface{}) string
 }
 
 type AbstractPO struct {
