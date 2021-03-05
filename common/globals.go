@@ -6,9 +6,19 @@ package common
 const RetOk = "0"
 
 /**
+ * 系统错误的返回码
+ */
+const RetSystemFail = "500"
+
+/**
  * 一切OK的CODE
  */
 const CodeOk = "00000"
+
+/**
+ * rpc调用异常
+ */
+const CodeRpcFail = "B0001"
 
 /**
  * 一切OK的消息

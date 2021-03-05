@@ -26,7 +26,20 @@ message LResult {
   string data = 5;
 }
 
-message LMsg {
-  string api = 1;
-  string msg = 2;
+message RpcMsg {
+  string route = 1;
+  string serverId = 2;
+  string msg = 3;
+  string token = 4;
+}
+
+message RpcRes {
+  // 返回码 0成功 其他为失败
+  string code = 1;
+  // 错误编号
+  string err_code = 2;
+  // 消息
+  string msg = 3;
+  // 内容
+  string data = 4;
 }
