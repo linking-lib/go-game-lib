@@ -11,19 +11,19 @@ import (
 type DbRepositorySupport struct {
 }
 
-func (db DbRepositorySupport) dbName(value interface{}) string {
+func (db DbRepositorySupport) DbName(value interface{}) string {
 	po := value.(po2.AbstractPO)
 	return po.Db
 }
 
-func (db DbRepositorySupport) cacheName(value interface{}) string {
+func (db DbRepositorySupport) CacheName(value interface{}) string {
 	po := value.(po2.PO)
 	return po.CacheName()
 }
 
-func (db DbRepositorySupport) findOne(query interface{}, dest interface{}) {
-	var dbName = db.dbName(query)
-	var key = db.cacheName(query)
+func (db DbRepositorySupport) FindOne(query interface{}, dest interface{}) {
+	var dbName = db.DbName(query)
+	var key = db.CacheName(query)
 	var str = redis.RGet(dbName, key)
 	if strs.IsEmpty(str) {
 		mysql.MFindOne(dbName, dest, query)
@@ -33,9 +33,9 @@ func (db DbRepositorySupport) findOne(query interface{}, dest interface{}) {
 	}
 }
 
-func (db DbRepositorySupport) find(query interface{}, dest interface{}) {
-	var dbName = db.dbName(query)
-	var key = db.cacheName(query)
+func (db DbRepositorySupport) Find(query interface{}, dest interface{}) {
+	var dbName = db.DbName(query)
+	var key = db.CacheName(query)
 	var str = redis.RGet(dbName, key)
 	if strs.IsEmpty(str) {
 		mysql.MFind(dbName, dest, query)
@@ -45,8 +45,8 @@ func (db DbRepositorySupport) find(query interface{}, dest interface{}) {
 	}
 }
 
-func (db DbRepositorySupport) save(dest interface{}) {
-	var dbName = db.dbName(dest)
-	var key = db.cacheName(dest)
+func (db DbRepositorySupport) Save(dest interface{}) {
+	var dbName = db.DbName(dest)
+	var key = db.CacheName(dest)
 	redis.RSet(dbName, key, common.ConvertJson(dest))
 }
