@@ -20,17 +20,19 @@ func (db DbRepositorySupport) ParseName(value interface{}) (string, string) {
 	return dbName, key
 }
 
-func (db DbRepositorySupport) findFromCache(query interface{}, dest interface{}) {
+func (db DbRepositorySupport) findFromCache(query interface{}, dest interface{}) bool {
 	dbName, key := db.ParseName(query)
 	var str = redis.RGet(dbName, key)
 	if !strs.IsEmpty(str) {
 		common.ParseJson(str, dest)
+		return true
+	} else {
+		return false
 	}
 }
 
 func (db DbRepositorySupport) find(query interface{}, dest interface{}, dbFind func(dbName string, query interface{}, dest interface{})) {
-	db.findFromCache(query, dest)
-	if util.IsNil(dest) {
+	if !db.findFromCache(query, dest) {
 		dbName, key := db.ParseName(query)
 		dbFind(dbName, query, dest)
 		mysql.MFindOne(dbName, dest, query)
