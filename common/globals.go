@@ -24,3 +24,18 @@ const CodeRpcFail = "B0001"
  * 一切OK的消息
  */
 const MsgOk = "ok"
+
+/**
+数据库缓存模式-全部
+*/
+const DbCacheModeAll = "db/cache"
+
+/**
+数据库缓存模式-缓存
+*/
+const DbCacheModeCacheFirst = "cache"
+
+/**
+数据更新队列名
+*/
+const DbDataUpdateQueue = "Cache:Update:"

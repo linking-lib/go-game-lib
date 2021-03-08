@@ -21,6 +21,7 @@ type App struct {
 	debug       bool
 	routes      []string
 	clientRoute string
+	DbCacheMode string
 }
 
 var (
@@ -71,6 +72,18 @@ func GetRoutes() []string {
 
 func IsDebug() bool {
 	return app.debug
+}
+
+func SetDbCacheMode(mode string) {
+	app.DbCacheMode = mode
+}
+
+func GetDbCacheMode() string {
+	if app.DbCacheMode == "" {
+		return common.DbCacheModeAll
+	} else {
+		return app.DbCacheMode
+	}
 }
 
 func HandleMsg(msg *module.HandlerMsg) {
