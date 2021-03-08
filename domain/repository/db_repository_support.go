@@ -80,7 +80,7 @@ func (db DbRepositorySupport) SaveList(query interface{}, dest interface{}, valu
 	if linking.GetDbCacheMode() == common.DbCacheModeAll {
 		db.RemoveCache(query)
 	}
-	for value := range values {
+	for _, value := range values {
 		db.save(value)
 	}
 }
