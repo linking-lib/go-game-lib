@@ -6,8 +6,7 @@ import (
 
 type PO interface {
 	DbName() string
-	CacheOneName(value interface{}) string
-	CacheListName(value interface{}) string
+	CacheName(value interface{}) string
 	OnCreate() bool
 }
 
