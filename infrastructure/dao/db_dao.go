@@ -8,8 +8,8 @@ import (
 type DbDao interface {
 	DbName(value interface{}) string
 	CacheName(value interface{}) string
-	SelectOne(dbName string, query interface{}, dest interface{})
-	SelectList(dbName string, query interface{}, dest interface{})
+	SelectOne(dbName string, query interface{}, dest interface{}) int64
+	SelectList(dbName string, query interface{}, dest interface{}) int64
 	InsertOne(dbName string, dest interface{}) int64
 	UpdateOne(dbName string, dest interface{}) int64
 }
@@ -25,12 +25,12 @@ func (db DbDaoSupport) CacheName(value interface{}) string {
 	return value.(po.PO).CacheName(value)
 }
 
-func (db DbDaoSupport) SelectOne(dbName string, query interface{}, dest interface{}) {
-	mysql.MFindOne(dbName, dest, query)
+func (db DbDaoSupport) SelectOne(dbName string, query interface{}, dest interface{}) int64 {
+	return mysql.MFindOne(dbName, dest, query)
 }
 
-func (db DbDaoSupport) SelectList(dbName string, query interface{}, dest interface{}) {
-	mysql.MFind(dbName, dest, query)
+func (db DbDaoSupport) SelectList(dbName string, query interface{}, dest interface{}) int64 {
+	return mysql.MFindList(dbName, dest, query)
 }
 
 func (db DbDaoSupport) InsertOne(dbName string, dest interface{}) int64 {

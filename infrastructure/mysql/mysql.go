@@ -22,15 +22,15 @@ type Query struct {
 /**
 查找一个数据
 */
-func MFindOne(db string, dest interface{}, query interface{}) {
-	getConn(db).Where(query).First(dest)
+func MFindOne(db string, dest interface{}, query interface{}) int64 {
+	return getConn(db).Where(query).First(dest).RowsAffected
 }
 
 /**
 查找数据列表
 */
-func MFind(db string, dest interface{}, query interface{}) {
-	getConn(db).Where(query).Find(dest)
+func MFindList(db string, dest interface{}, query interface{}) int64 {
+	return getConn(db).Where(query).Find(dest).RowsAffected
 }
 
 /**
