@@ -20,7 +20,7 @@ func (db DbRepositorySupport) ParseName(value interface{}) (string, string) {
 	return dbName, key
 }
 
-func (db DbRepositorySupport) FindFromCache(query interface{}, dest interface{}) {
+func (db DbRepositorySupport) findFromCache(query interface{}, dest interface{}) {
 	dbName, key := db.ParseName(query)
 	var str = redis.RGet(dbName, key)
 	if !strs.IsEmpty(str) {
@@ -29,7 +29,7 @@ func (db DbRepositorySupport) FindFromCache(query interface{}, dest interface{})
 }
 
 func (db DbRepositorySupport) find(query interface{}, dest interface{}, dbFind func(dbName string, query interface{}, dest interface{})) {
-	db.FindFromCache(query, dest)
+	db.findFromCache(query, dest)
 	if util.IsNil(dest) {
 		dbName, key := db.ParseName(query)
 		dbFind(dbName, query, dest)

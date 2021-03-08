@@ -7,7 +7,8 @@ import (
 
 type DbDao interface {
 	DbName(value interface{}) string
-	CacheName(value interface{}) string
+	CacheOneName(value interface{}) string
+	CacheListName(value interface{}) string
 	SelectOne(dbName string, query interface{}, dest interface{})
 	SelectList(dbName string, query interface{}, dest interface{})
 	InsertOne(dbName string, dest interface{}) int64
@@ -21,8 +22,12 @@ func (db DbDaoSupport) DbName(value interface{}) string {
 	return value.(po.PO).DbName()
 }
 
-func (db DbDaoSupport) CacheName(value interface{}) string {
-	return value.(po.PO).CacheName(value)
+func (db DbDaoSupport) CacheOneName(value interface{}) string {
+	return value.(po.PO).CacheOneName(value)
+}
+
+func (db DbDaoSupport) CacheListName(value interface{}) string {
+	return value.(po.PO).CacheListName(value)
 }
 
 func (db DbDaoSupport) SelectOne(dbName string, query interface{}, dest interface{}) {
