@@ -41,16 +41,16 @@ func (db DbRepositorySupport) SaveOne(dest interface{}) {
 	SaveCache(cacheName, dest)
 }
 
-func (db DbRepositorySupport) FindList(query interface{}, dest interface{}) []interface{} {
+func (db DbRepositorySupport) FindList(query interface{}, dest interface{}, destList interface{}) []interface{} {
 	cacheName := query.(po.PO).CacheName()
 	list := FindListCache(cacheName, dest)
 	if len(list) > 0 {
 		return list
 	}
-	if db.Rep.SelectList(query, dest, list) > 0 {
-		SaveListAllCache(cacheName.Key, list, db.Rep)
+	if db.Rep.SelectList(query, dest, destList) > 0 {
+		SaveListAllCache(cacheName.Key, destList.([]interface{}), db.Rep)
 	}
-	return list
+	return destList.([]interface{})
 }
 
 func (db DbRepositorySupport) SaveList(cacheName po.CacheName, values ...interface{}) {
