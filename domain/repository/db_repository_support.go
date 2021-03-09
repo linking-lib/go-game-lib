@@ -10,7 +10,7 @@ type DbRepositorySupport struct {
 
 type DbRepository interface {
 	SelectOne(query interface{}, dest interface{}) int64
-	SelectList(query interface{}, dest interface{}) int64
+	SelectList(query interface{}, dest interface{}, destList interface{}) int64
 	ParseCache(dest interface{}) (string, string)
 	InsertOne(dest interface{}) int64
 	UpdateOne(dest interface{}) int64
@@ -47,7 +47,7 @@ func (db DbRepositorySupport) FindList(query interface{}, dest interface{}) []in
 	if len(list) > 0 {
 		return list
 	}
-	if db.Rep.SelectList(query, list) > 0 {
+	if db.Rep.SelectList(query, dest, list) > 0 {
 		SaveListAllCache(cacheName.Key, list, db.Rep)
 	}
 	return list
