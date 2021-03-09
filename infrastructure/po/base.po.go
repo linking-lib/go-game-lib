@@ -15,5 +15,6 @@ type AbstractPO struct {
 }
 
 type CacheName struct {
-	Key string
+	Key     string
+	HashKey string
 }
