@@ -9,7 +9,7 @@ type Runtimes struct {
 }
 
 func (*Runtimes) GetProtocolType() string {
-	var dataType = redis.RGet("default", "runtime:protocol_type")
+	var dataType = redis.RGet("runtime:protocol_type")
 	if strs.IsEmpty(dataType) {
 		return ProtocolJson.String()
 	} else {
@@ -18,7 +18,7 @@ func (*Runtimes) GetProtocolType() string {
 }
 
 func (*Runtimes) SetProtocolType(protocolType string) {
-	redis.RSet("default", "runtime:protocol_type", protocolType)
+	redis.RSet("runtime:protocol_type", protocolType)
 }
 
 var SelfRuntime = &Runtimes{}
