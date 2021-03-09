@@ -2,12 +2,9 @@ package dao
 
 import (
 	"github.com/linking-lib/go-game-lib/infrastructure/mysql"
-	"github.com/linking-lib/go-game-lib/infrastructure/po"
 )
 
 type DbDao interface {
-	DbName(value interface{}) string
-	CacheName(value interface{}) string
 	SelectOne(dbName string, query interface{}, dest interface{}) int64
 	SelectList(dbName string, query interface{}, dest interface{}) int64
 	InsertOne(dbName string, dest interface{}) int64
@@ -15,14 +12,6 @@ type DbDao interface {
 }
 
 type DbDaoSupport struct {
-}
-
-func (db DbDaoSupport) DbName(value interface{}) string {
-	return value.(po.PO).DbName()
-}
-
-func (db DbDaoSupport) CacheName(value interface{}) string {
-	return value.(po.PO).CacheName(value)
 }
 
 func (db DbDaoSupport) SelectOne(dbName string, query interface{}, dest interface{}) int64 {
