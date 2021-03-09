@@ -7,6 +7,7 @@
 package redis
 
 import (
+	"github.com/gomodule/redigo/redis"
 	"github.com/linking-lib/go-game-lib/utils/strs"
 )
 
@@ -154,10 +155,10 @@ func RHLen(key string) int64 {
 }
 
 func RHMGet(key string, field ...string) []string {
-	var args = make([]interface{}, 0)
-	args = append(args, key)
+	var args = redis.Args{}
+	args = args.Add(key)
 	for i := range field {
-		args = append(args, field[i])
+		args = args.Add(field[i])
 	}
 	value := make([]string, 0)
 	conn := getConn(GetDb())
@@ -175,10 +176,10 @@ func RHMGet(key string, field ...string) []string {
 }
 
 func RHMSet(key string, fieldValue ...string) {
-	var args = make([]interface{}, 0)
-	args = append(args, key)
+	var args = redis.Args{}
+	args = args.Add(key)
 	for i := range fieldValue {
-		args = append(args, fieldValue[i])
+		args = args.Add(fieldValue[i])
 	}
 	conn := getConn(GetDb())
 	defer releaseConn(conn)
@@ -224,10 +225,10 @@ func RLLPop(key string) string {
 }
 
 func RLLPush(key string, value ...string) {
-	var args = make([]interface{}, 0)
-	args = append(args, key)
+	var args = redis.Args{}
+	args = args.Add(key)
 	for i := range value {
-		args = append(args, value[i])
+		args = args.Add(value[i])
 	}
 	conn := getConn(GetDb())
 	defer releaseConn(conn)
@@ -246,10 +247,10 @@ func RLRPop(key string) string {
 }
 
 func RLRPush(key string, value ...string) {
-	var args = make([]interface{}, 0)
-	args = append(args, key)
+	var args = redis.Args{}
+	args = args.Add(key)
 	for i := range value {
-		args = append(args, value[i])
+		args = args.Add(value[i])
 	}
 	conn := getConn(GetDb())
 	defer releaseConn(conn)
@@ -257,10 +258,10 @@ func RLRPush(key string, value ...string) {
 }
 
 func RSAdd(key string, value ...string) {
-	var args = make([]interface{}, 0)
-	args = append(args, key)
+	var args = redis.Args{}
+	args = args.Add(key)
 	for i := range value {
-		args = append(args, value[i])
+		args = args.Add(value[i])
 	}
 	conn := getConn(GetDb())
 	defer releaseConn(conn)
@@ -279,10 +280,10 @@ func RSCard(key string) int64 {
 }
 
 func RSRem(key string, value ...string) {
-	var args = make([]interface{}, 0)
-	args = append(args, key)
+	var args = redis.Args{}
+	args = args.Add(key)
 	for i := range value {
-		args = append(args, value[i])
+		args = args.Add(value[i])
 	}
 	conn := getConn(GetDb())
 	defer releaseConn(conn)
@@ -328,10 +329,10 @@ func RZAdd(key string, member string, score float64) {
 redis.RZAdds("default", "test_set",1.2,  "test2", 1.3, "test3")
 */
 func RZAdds(key string, arg ...interface{}) {
-	var args = make([]interface{}, 0)
-	args = append(args, key)
+	var args = redis.Args{}
+	args = args.Add(key)
 	for i := range arg {
-		args = append(args, arg[i])
+		args = args.Add(arg[i])
 	}
 	conn := getConn(GetDb())
 	defer releaseConn(conn)
@@ -459,10 +460,10 @@ func RZRank(key string, member string, isRev bool) int64 {
 }
 
 func RZRem(key string, member ...string) {
-	var args = make([]interface{}, 0)
-	args = append(args, key)
+	var args = redis.Args{}
+	args = args.Add(key)
 	for i := range member {
-		args = append(args, member[i])
+		args = args.Add(member[i])
 	}
 	conn := getConn(GetDb())
 	defer releaseConn(conn)

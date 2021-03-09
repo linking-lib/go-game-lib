@@ -12,7 +12,7 @@ type DbRepository interface {
 	SelectOne(query interface{}, dest interface{}) int64
 	SelectList(query interface{}, dest interface{}, destList interface{}) int64
 	ParseCache(dest interface{}) (string, string)
-	ParseCacheList(dest interface{}) []string
+	ParseCacheList(destList interface{}) []string
 	InsertOne(dest interface{}) int64
 	UpdateOne(dest interface{}) int64
 }
