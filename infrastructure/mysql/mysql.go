@@ -26,15 +26,15 @@ func GetDb() string {
 /**
 查找一个数据
 */
-func MFindOne(dest interface{}, query interface{}) int64 {
+func MFindOne(query interface{}, dest interface{}) int64 {
 	return getConn(GetDb()).Where(query).First(dest).RowsAffected
 }
 
 /**
 查找数据列表
 */
-func MFindList(dest interface{}, query interface{}) int64 {
-	return getConn(GetDb()).Where(query).Find(dest).RowsAffected
+func MFindList(query interface{}, dest interface{}, destList interface{}) int64 {
+	return getConn(GetDb()).Where(query).Model(dest).Find(destList).RowsAffected
 }
 
 /**
