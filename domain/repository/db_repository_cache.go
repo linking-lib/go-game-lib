@@ -43,12 +43,8 @@ func SaveListCache(cacheName po.CacheName, dest interface{}) {
 	redis.RHSet(cacheName.Key, cacheName.HashKey, common.ConvertJson(dest))
 }
 
-func SaveListAllCache(key string, destList []interface{}, dbRepository DbRepository) {
-	var args = make([]string, 0)
-	for _, dest := range destList {
-		hashKey, value := dbRepository.ParseCache(dest)
-		args = append(args, hashKey, value)
-	}
+func SaveListAllCache(key string, destList interface{}, dbRepository DbRepository) {
+	var args = dbRepository.ParseCacheList(destList)
 	redis.RHMSet(key, args...)
 }
 

@@ -12,6 +12,7 @@ type DbRepository interface {
 	SelectOne(query interface{}, dest interface{}) int64
 	SelectList(query interface{}, dest interface{}, destList interface{}) int64
 	ParseCache(dest interface{}) (string, string)
+	ParseCacheList(dest interface{}) []string
 	InsertOne(dest interface{}) int64
 	UpdateOne(dest interface{}) int64
 }
@@ -41,16 +42,16 @@ func (db DbRepositorySupport) SaveOne(dest interface{}) {
 	SaveCache(cacheName, dest)
 }
 
-func (db DbRepositorySupport) FindList(query interface{}, dest interface{}, destList interface{}) []interface{} {
+func (db DbRepositorySupport) FindList(query interface{}, dest interface{}, destList interface{}) interface{} {
 	cacheName := query.(po.PO).CacheName()
 	list := FindListCache(cacheName, dest)
 	if len(list) > 0 {
 		return list
 	}
 	if db.Rep.SelectList(query, dest, destList) > 0 {
-		SaveListAllCache(cacheName.Key, destList.([]interface{}), db.Rep)
+		SaveListAllCache(cacheName.Key, destList, db.Rep)
 	}
-	return destList.([]interface{})
+	return destList
 }
 
 func (db DbRepositorySupport) SaveList(cacheName po.CacheName, values ...interface{}) {
