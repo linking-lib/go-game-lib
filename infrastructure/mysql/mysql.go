@@ -19,25 +19,29 @@ type Query struct {
 	value string
 }
 
+func GetDb() string {
+	return "default"
+}
+
 /**
 查找一个数据
 */
-func MFindOne(db string, dest interface{}, query interface{}) int64 {
-	return getConn(db).Where(query).First(dest).RowsAffected
+func MFindOne(dest interface{}, query interface{}) int64 {
+	return getConn(GetDb()).Where(query).First(dest).RowsAffected
 }
 
 /**
 查找数据列表
 */
-func MFindList(db string, dest interface{}, query interface{}) int64 {
-	return getConn(db).Where(query).Find(dest).RowsAffected
+func MFindList(dest interface{}, query interface{}) int64 {
+	return getConn(GetDb()).Where(query).Find(dest).RowsAffected
 }
 
 /**
 插入数据
 */
-func MAdd(db string, dest interface{}) int64 {
-	result := getConn(db).Create(dest)
+func MAdd(dest interface{}) int64 {
+	result := getConn(GetDb()).Create(dest)
 	if result.Error != nil {
 		_ = log4go.Error("mysql add error================", result.Error)
 		return 0
@@ -49,8 +53,8 @@ func MAdd(db string, dest interface{}) int64 {
 /**
 更新数据
 */
-func MSave(db string, dest interface{}) int64 {
-	result := getConn(db).Save(dest)
+func MSave(dest interface{}) int64 {
+	result := getConn(GetDb()).Save(dest)
 	if result.Error != nil {
 		_ = log4go.Error("mysql save error================", result.Error)
 		return 0
@@ -62,8 +66,8 @@ func MSave(db string, dest interface{}) int64 {
 /**
 删除数据
 */
-func MRemove(db string, dest interface{}) int64 {
-	result := getConn(db).Delete(dest)
+func MRemove(dest interface{}) int64 {
+	result := getConn(GetDb()).Delete(dest)
 	if result.Error != nil {
 		_ = log4go.Error("mysql save error================", result.Error)
 		return 0
