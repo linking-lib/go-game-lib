@@ -25,9 +25,10 @@ func RemoveCache(cacheName po.CacheName) {
 	redis.RDel(cacheName.Key)
 }
 
-func FindListCache(cacheName po.CacheName, dest interface{}) []interface{} {
+func FindListCache(cacheName po.CacheName, dest interface{}, dbRepository DbRepository) (interface{}, int) {
 	var list = make([]interface{}, 0)
 	strMap := redis.RHGetAll(cacheName.Key)
+	num := len(strMap)
 	if len(strMap) > 0 {
 		for _, str := range strMap {
 			if !strs.IsEmpty(str) {
@@ -36,7 +37,7 @@ func FindListCache(cacheName po.CacheName, dest interface{}) []interface{} {
 			}
 		}
 	}
-	return list
+	return dbRepository.CacheToList(list), num
 }
 
 func SaveListCache(cacheName po.CacheName, dest interface{}) {

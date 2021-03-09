@@ -11,10 +11,11 @@ type DbRepositorySupport struct {
 type DbRepository interface {
 	SelectOne(query interface{}, dest interface{}) int64
 	SelectList(query interface{}, dest interface{}, destList interface{}) int64
-	ParseCache(dest interface{}) (string, string)
-	ParseCacheList(destList interface{}) []string
 	InsertOne(dest interface{}) int64
 	UpdateOne(dest interface{}) int64
+	ParseCache(dest interface{}) (string, string)
+	ParseCacheList(destList interface{}) []string
+	CacheToList(destList []interface{}) interface{}
 }
 
 func (db DbRepositorySupport) FindOne(query interface{}, dest interface{}) bool {
@@ -44,8 +45,8 @@ func (db DbRepositorySupport) SaveOne(dest interface{}) {
 
 func (db DbRepositorySupport) FindList(query interface{}, dest interface{}, destList interface{}) interface{} {
 	cacheName := query.(po.PO).CacheName()
-	list := FindListCache(cacheName, dest)
-	if len(list) > 0 {
+	list, size := FindListCache(cacheName, dest, db.Rep)
+	if size > 0 {
 		return list
 	}
 	if db.Rep.SelectList(query, dest, destList) > 0 {
