@@ -27,6 +27,10 @@ func (db DbRepositorySupport) RemoveCache(cacheName po.CacheName) {
 	redis.RDel(cacheName.Key)
 }
 
+func (db DbRepositorySupport) SaveCache(cacheName po.CacheName, dest interface{}) {
+	redis.RSet(cacheName.Key, common.ConvertJson(dest))
+}
+
 func (db DbRepositorySupport) FindOne(query interface{}, dest interface{}) bool {
 	cacheName := query.(po.PO).CacheName()
 	if db.FindCache(cacheName, dest) {
@@ -51,9 +55,11 @@ func (db DbRepositorySupport) FindList(query interface{}, dest interface{}) bool
 	return false
 }
 
-func (db DbRepositorySupport) Save(cacheName po.CacheName, values ...interface{}) {
+func (db DbRepositorySupport) Save(cacheName po.CacheName, dest interface{}, values ...interface{}) {
 	if linking.GetDbCacheMode() == common.DbCacheModeAll {
 		db.RemoveCache(cacheName)
+	} else {
+		db.SaveCache(cacheName, dest)
 	}
 	for _, value := range values {
 		dest := value.(po.PO)
