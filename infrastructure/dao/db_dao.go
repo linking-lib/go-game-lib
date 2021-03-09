@@ -6,7 +6,7 @@ import (
 
 type DbDao interface {
 	SelectOne(query interface{}, dest interface{}) int64
-	SelectList(query interface{}, dest interface{}) int64
+	SelectList(query interface{}, dest interface{}, destList interface{}) int64
 	InsertOne(dest interface{}) int64
 	UpdateOne(dest interface{}) int64
 }
@@ -15,11 +15,11 @@ type DbDaoSupport struct {
 }
 
 func (db DbDaoSupport) SelectOne(query interface{}, dest interface{}) int64 {
-	return mysql.MFindOne(dest, query)
+	return mysql.MFindOne(query, dest)
 }
 
-func (db DbDaoSupport) SelectList(query interface{}, dest interface{}) int64 {
-	return mysql.MFindList(dest, query)
+func (db DbDaoSupport) SelectList(query interface{}, dest interface{}, destList interface{}) int64 {
+	return mysql.MFindList(query, dest, destList)
 }
 
 func (db DbDaoSupport) InsertOne(dest interface{}) int64 {
