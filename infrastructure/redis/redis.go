@@ -111,6 +111,13 @@ func RHSet(key string, field string, value string) {
 	conn.Do("HSET", key, field, value)
 }
 
+func RHSetEx(key string, field string, value string, expire int) {
+	conn := getConn(GetDb())
+	defer releaseConn(conn)
+	conn.Do("HSET", key, field, value)
+	conn.Do("EXPIRE", key, expire)
+}
+
 func RHSetNX(key string, field string, value string) bool {
 	conn := getConn(GetDb())
 	defer releaseConn(conn)
@@ -141,6 +148,13 @@ func RHIncrBy(key string, field string, num int) {
 	conn := getConn(GetDb())
 	defer releaseConn(conn)
 	conn.Do("HINCRBY", key, field, num)
+}
+
+func RHIncrByEx(key string, field string, num int, expire int) {
+	conn := getConn(GetDb())
+	defer releaseConn(conn)
+	conn.Do("HINCRBY", key, field, num)
+	conn.Do("EXPIRE", key, expire)
 }
 
 func RHLen(key string) int64 {
@@ -184,6 +198,18 @@ func RHMSet(key string, fieldValue ...string) {
 	conn := getConn(GetDb())
 	defer releaseConn(conn)
 	conn.Do("HMSET", args...)
+}
+
+func RHMSetEx(key string, expire int, fieldValue ...string) {
+	var args = redis.Args{}
+	args = args.Add(key)
+	for i := range fieldValue {
+		args = args.Add(fieldValue[i])
+	}
+	conn := getConn(GetDb())
+	defer releaseConn(conn)
+	conn.Do("HMSET", args...)
+	conn.Do("EXPIRE", key, expire)
 }
 
 func RHValues(key string) []string {
@@ -268,6 +294,18 @@ func RSAdd(key string, value ...string) {
 	conn.Do("SADD", args...)
 }
 
+func RSAddEx(key string, expire int, value ...string) {
+	var args = redis.Args{}
+	args = args.Add(key)
+	for i := range value {
+		args = args.Add(value[i])
+	}
+	conn := getConn(GetDb())
+	defer releaseConn(conn)
+	conn.Do("SADD", args...)
+	conn.Do("EXPIRE", key, expire)
+}
+
 func RSCard(key string) int64 {
 	conn := getConn(GetDb())
 	defer releaseConn(conn)
@@ -325,6 +363,13 @@ func RZAdd(key string, member string, score float64) {
 	conn.Do("ZADD", key, score, member)
 }
 
+func RZAddEx(key string, member string, score float64, expire int) {
+	conn := getConn(GetDb())
+	defer releaseConn(conn)
+	conn.Do("ZADD", key, score, member)
+	conn.Do("EXPIRE", key, expire)
+}
+
 /**
 redis.RZAdds("default", "test_set",1.2,  "test2", 1.3, "test3")
 */
@@ -337,6 +382,18 @@ func RZAdds(key string, arg ...interface{}) {
 	conn := getConn(GetDb())
 	defer releaseConn(conn)
 	conn.Do("ZADD", args...)
+}
+
+func RZAddsEx(key string, expire int, arg ...interface{}) {
+	var args = redis.Args{}
+	args = args.Add(key)
+	for i := range arg {
+		args = args.Add(arg[i])
+	}
+	conn := getConn(GetDb())
+	defer releaseConn(conn)
+	conn.Do("ZADD", args...)
+	conn.Do("EXPIRE", key, expire)
 }
 
 func RZCard(key string) int64 {
