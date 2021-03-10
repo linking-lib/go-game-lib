@@ -7,7 +7,10 @@ import (
 
 type JwtInfo struct {
 	RoleId string
-	Msg    string
+}
+
+func NewJwtInfo(roleId string) *JwtInfo {
+	return &JwtInfo{RoleId: roleId}
 }
 
 func ParseToken(token string, secret string) (*JwtInfo, error) {
@@ -18,14 +21,12 @@ func ParseToken(token string, secret string) (*JwtInfo, error) {
 		return nil, err
 	}
 	roleId := claim.Claims.(jwt.MapClaims)["uid"].(string)
-	msg := claim.Claims.(jwt.MapClaims)["msg"].(string)
-	return &JwtInfo{RoleId: roleId, Msg: msg}, nil
+	return &JwtInfo{RoleId: roleId}, nil
 }
 
 func BuildToken(jwtInfo *JwtInfo, secret string) (string, error) {
 	at := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
 		"uid": jwtInfo.RoleId,
-		"msg": jwtInfo.Msg,
 		"exp": time.Now().Add(time.Minute * 15).Unix(),
 	})
 	token, err := at.SignedString([]byte(secret))
