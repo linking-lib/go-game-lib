@@ -26,6 +26,11 @@ const Day1Second = Hour1Second * 24
 const Hour30Second = Hour1Second * 30
 
 /**
+ * three day second
+ */
+const Day3Second = Day1Second * 3
+
+/**
  * seven day second
  */
 const Day7Second = Day1Second * 7

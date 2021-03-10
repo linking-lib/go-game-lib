@@ -17,8 +17,8 @@ func FindCache(cacheName po.CacheName, dest interface{}) bool {
 	}
 }
 
-func SaveCache(cacheName po.CacheName, dest interface{}) {
-	redis.RSet(cacheName.Key, common.ConvertJson(dest))
+func SaveCache(cacheName po.CacheName, dest interface{}, expire int) {
+	redis.RSetEX(cacheName.Key, common.ConvertJson(dest), expire)
 }
 
 func RemoveCache(cacheName po.CacheName) {
@@ -40,13 +40,13 @@ func FindListCache(cacheName po.CacheName, dest interface{}, dbRepository DbRepo
 	return dbRepository.CacheToList(list), num
 }
 
-func SaveListCache(cacheName po.CacheName, dest interface{}) {
-	redis.RHSet(cacheName.Key, cacheName.HashKey, common.ConvertJson(dest))
+func SaveListCache(cacheName po.CacheName, dest interface{}, expire int) {
+	redis.RHSetEx(cacheName.Key, cacheName.HashKey, common.ConvertJson(dest), expire)
 }
 
-func SaveListAllCache(key string, destList interface{}, dbRepository DbRepository) {
+func SaveListAllCache(key string, destList interface{}, expire int, dbRepository DbRepository) {
 	var args = dbRepository.ParseCacheList(destList)
-	redis.RHMSet(key, args...)
+	redis.RHMSetEx(key, expire, args...)
 }
 
 func RemoveListCache(cacheName po.CacheName) {

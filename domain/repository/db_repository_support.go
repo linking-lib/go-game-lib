@@ -1,6 +1,7 @@
 package repository
 
 import (
+	"github.com/linking-lib/go-game-lib/constants"
 	"github.com/linking-lib/go-game-lib/infrastructure/po"
 )
 
@@ -16,6 +17,11 @@ type DbRepository interface {
 	ParseCache(dest interface{}) (string, string)
 	ParseCacheList(destList interface{}) []string
 	CacheToList(destList []interface{}) interface{}
+	ExpireTime() int
+}
+
+func (db DbRepositorySupport) ExpireTime() int {
+	return constants.Day3Second
 }
 
 func (db DbRepositorySupport) FindOne(query interface{}, dest interface{}) bool {
@@ -24,7 +30,7 @@ func (db DbRepositorySupport) FindOne(query interface{}, dest interface{}) bool 
 		return true
 	}
 	if db.Rep.SelectOne(query, dest) > 0 {
-		SaveCache(cacheName, dest)
+		SaveCache(cacheName, dest, db.Rep.ExpireTime())
 		return true
 	}
 	return false
@@ -40,7 +46,7 @@ func (db DbRepositorySupport) SaveOne(dest interface{}) {
 		db.Rep.UpdateOne(dest)
 	}
 	// 2、保存缓存
-	SaveCache(cacheName, dest)
+	SaveCache(cacheName, dest, db.Rep.ExpireTime())
 }
 
 func (db DbRepositorySupport) FindList(query interface{}, dest interface{}, destList interface{}) interface{} {
@@ -50,7 +56,7 @@ func (db DbRepositorySupport) FindList(query interface{}, dest interface{}, dest
 		return list
 	}
 	if db.Rep.SelectList(query, dest, destList) > 0 {
-		SaveListAllCache(cacheName.Key, destList, db.Rep)
+		SaveListAllCache(cacheName.Key, destList, db.Rep.ExpireTime(), db.Rep)
 	}
 	return destList
 }
