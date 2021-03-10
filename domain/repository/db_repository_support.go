@@ -34,7 +34,7 @@ func (db DbRepositorySupport) SaveOne(dest interface{}) {
 	value := dest.(po.PO)
 	cacheName := value.(po.PO).CacheName()
 	// 1、先保存数据库
-	if value.OnCreate() {
+	if value.IsCreate() {
 		db.Rep.InsertOne(dest)
 	} else {
 		db.Rep.UpdateOne(dest)
@@ -61,7 +61,7 @@ func (db DbRepositorySupport) SaveList(cacheName po.CacheName, values ...interfa
 	// 2、再修改数据库
 	for _, value := range values {
 		dest := value.(po.PO)
-		if dest.OnCreate() {
+		if dest.IsCreate() {
 			db.Rep.InsertOne(value)
 		} else {
 			db.Rep.UpdateOne(value)
