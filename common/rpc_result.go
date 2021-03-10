@@ -5,20 +5,6 @@ import (
 	"github.com/linking-lib/go-game-lib/protos"
 )
 
-type RpcMsg struct {
-	Route    string `json:"route,omitempty"`
-	ServerId string `json:"server_id,omitempty"`
-	Msg      string `json:"msg,omitempty"`
-	Token    string `json:"token,omitempty"`
-}
-
-type RpcResult struct {
-	Code    string      `json:"code,omitempty"`
-	ErrCode string      `json:"err_code,omitempty"`
-	Msg     string      `json:"msg,omitempty"`
-	Data    interface{} `json:"data,omitempty"`
-}
-
 func NewRpcMsg(route string, Msg string, token string) *protos.RpcMsg {
 	return &protos.RpcMsg{Route: route, ServerId: "", Msg: Msg, Token: token}
 }

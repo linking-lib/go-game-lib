@@ -42,3 +42,7 @@ func OfFailData(code string, errCode string, msg string, data interface{}) *prot
 	}
 	return result
 }
+
+func ToRpcRes(lResult *protos.LResult) *protos.RpcRes {
+	return &protos.RpcRes{Code: lResult.Code, ErrCode: lResult.ErrCode, Msg: lResult.Msg, Data: lResult.Data}
+}
