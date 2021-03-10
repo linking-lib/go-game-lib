@@ -4,7 +4,7 @@ import (
 	"context"
 	"github.com/alecthomas/log4go"
 	"github.com/linking-lib/go-game-lib/common"
-	"github.com/linking-lib/go-game-lib/lkerrors"
+	"github.com/linking-lib/go-game-lib/pkg/lkerrors"
 	"github.com/linking-lib/go-game-lib/protos"
 	util2 "github.com/linking-lib/go-game-lib/utils/util"
 	"github.com/topfreegames/pitaya"

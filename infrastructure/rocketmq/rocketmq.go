@@ -5,7 +5,7 @@ import (
 	"github.com/alecthomas/log4go"
 	mqHttpSdk "github.com/aliyunmq/mq-http-go-sdk"
 	"github.com/gogap/errors"
-	lkError "github.com/linking-lib/go-game-lib/lkerrors"
+	lkError "github.com/linking-lib/go-game-lib/pkg/lkerrors"
 	"strings"
 	"time"
 )

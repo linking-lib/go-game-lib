@@ -22,7 +22,7 @@ package protobuf
 
 import (
 	"github.com/golang/protobuf/proto"
-	"github.com/linking-lib/go-game-lib/lkerrors"
+	"github.com/linking-lib/go-game-lib/pkg/lkerrors"
 )
 
 // Serializer implements the serialize.Serializer interface
