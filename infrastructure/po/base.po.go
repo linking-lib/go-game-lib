@@ -5,13 +5,22 @@ import (
 )
 
 type PO interface {
-	OnCreate() bool
-	NotEmpty() bool
+	OnCreate()
+	IsCreate() bool
 	CacheName() CacheName
 }
 
 type AbstractPO struct {
 	gorm.Model
+	Create bool `gorm:"-"`
+}
+
+func (s AbstractPO) OnCreate() {
+	s.Create = true
+}
+
+func (s AbstractPO) IsCreate() bool {
+	return s.Create
 }
 
 type CacheName struct {
